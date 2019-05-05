@@ -1,4 +1,6 @@
 node ('master') {
+  def dockerImage
+
   stage('Clone repository') {
     /* Let's make sure we have the repository cloned to our workspace */
     checkout scm
@@ -28,7 +30,7 @@ node ('master') {
      * Second, the 'latest' tag.
      * Pushing multiple tags is cheap, as all the layers are reused. */
      docker.withRegistry('', 'crash430') {
-     dockerImage.push("latest")
+       dockerImage.push("latest")
      }
   }
 }
