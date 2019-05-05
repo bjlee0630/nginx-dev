@@ -8,6 +8,28 @@ node ('master') {
   stage('Build') {
     app = docker.build("nginx-test")
   }
-  stage('Results') {
+  stage('Run') {
+    docker.image('nginx-test').withRun('--name nginx-test -p 8081:80') {
+            /* do things */
+        }
+  }
+  stage('Test image') {
+    /* Ideally, we would run a test framework against our image.
+     * For this example, we're using a Volkswagen-type approach ;-) */
+
+    //app.inside {
+    //sh 'echo "Tests passed"'
+    }
+  }
+
+  stage('Push image') {
+    /* Finally, we'll push the image with two tags:
+     * First, the incremental build number from Jenkins
+     * Second, the 'latest' tag.
+     * Pushing multiple tags is cheap, as all the layers are reused. */
+//     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+//     app.push("${env.BUILD_NUMBER}")
+//     app.push("latest")
+//     }
   }
 }
