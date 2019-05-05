@@ -34,8 +34,8 @@ node ('master') {
      * First, the incremental build number from Jenkins
      * Second, the 'latest' tag.
      * Pushing multiple tags is cheap, as all the layers are reused. */
-     docker.withRegistry('', registryCredential ) {
-     dockerImage.push("latest")
-     }
-  }
+//     docker.withRegistry('', registryCredential ) {
+//     dockerImage.push("latest")
+//     }
+//  }
 }
