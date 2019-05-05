@@ -1,5 +1,4 @@
 node ('master') {
-  def app
   environment {
     registry = "crash430/nginx-test"
     registryCredential = 'crash430'
