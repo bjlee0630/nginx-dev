@@ -21,12 +21,12 @@ node ('master') {
 
     //dockerImage.inside {
     //sh 'echo "Tests passed"'
-    }
+    //}
   }
 
   stage('Push image') {
      docker.withRegistry('https://registry.hub.docker.com', 'crash430') {
-       //app.push("latest")
+       app.push("latest")
      }
   }
 }
