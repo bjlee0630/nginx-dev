@@ -10,9 +10,10 @@ node ('master') {
   }
   stage('Run') {
     sh "docker container rm -f nginx-test"
-    docker.image('nginx-test').withRun('--name nginx-test -p 8081:80 -d') {
+    sh "docker run --name nginx-test -p 8081:80 -d nginx-test"
+    //docker.image('nginx-test').withRun('--name nginx-test -p 8081:80 -d') {
             /* do things */
-        }
+    //    }
   }
   stage('Test image') {
     /* Ideally, we would run a test framework against our image.
