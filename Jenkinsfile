@@ -25,7 +25,7 @@ node ('master') {
   }
 
   stage('Push image') {
-     docker.withRegistry('https://registry.hub.docker.com', 'crash430') {
+     docker.withRegistry('https://registry.hub.docker.com/crash430', 'crash430') {
        app.push("latest")
      }
   }
