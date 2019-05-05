@@ -1,12 +1,18 @@
 node ('master') {
   def app
+  environment {
+    registry = "crash430/nginx-test"
+    registryCredential = 'crash430'
+    dockerImage = ''
+  }
 
   stage('Clone repository') {
     /* Let's make sure we have the repository cloned to our workspace */
     checkout scm
   }
   stage('Build') {
-    app = docker.build("nginx-test")
+    //dockerImage = docker.build("nginx-test")
+    dockerImage = docker.build registry + ":$BUILD_NUMBER"
   }
   stage('Run') {
     sh "docker container rm -f nginx-test"
@@ -19,7 +25,7 @@ node ('master') {
     /* Ideally, we would run a test framework against our image.
      * For this example, we're using a Volkswagen-type approach ;-) */
 
-    //app.inside {
+    //dockerImage.inside {
     //sh 'echo "Tests passed"'
     }
   }
@@ -29,9 +35,8 @@ node ('master') {
      * First, the incremental build number from Jenkins
      * Second, the 'latest' tag.
      * Pushing multiple tags is cheap, as all the layers are reused. */
-//     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-//     app.push("${env.BUILD_NUMBER}")
-//     app.push("latest")
-//     }
-//  }
+     docker.withRegistry('', registryCredential ) {
+     dockerImage.push("latest")
+     }
+  }
 }
