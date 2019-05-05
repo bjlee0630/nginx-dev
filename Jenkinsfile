@@ -1,12 +1,12 @@
 node ('master') {
-  def dockerImage
+  def app
 
   stage('Clone repository') {
     /* Let's make sure we have the repository cloned to our workspace */
     checkout scm
   }
   stage('Build') {
-    dockerImage = docker.build("nginx-test")
+    app = docker.build("nginx-test")
   }
   stage('Run') {
     sh "docker container rm -f nginx-test"
@@ -26,7 +26,7 @@ node ('master') {
 
   stage('Push image') {
      docker.withRegistry('https://registry.hub.docker.com', 'crash430') {
-       dockerImage.push("latest")
+       //app.push("latest")
      }
   }
 }
