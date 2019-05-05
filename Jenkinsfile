@@ -9,6 +9,7 @@ node ('master') {
     app = docker.build("nginx-test")
   }
   stage('Run') {
+    sh "docker rm -f nginx-test"
     docker.image('nginx-test').withRun('--name nginx-test -p 8081:80') {
             /* do things */
         }
