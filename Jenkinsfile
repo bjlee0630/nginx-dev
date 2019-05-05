@@ -31,5 +31,5 @@ node ('master') {
 //     app.push("${env.BUILD_NUMBER}")
 //     app.push("latest")
 //     }
-  }
+//  }
 }
