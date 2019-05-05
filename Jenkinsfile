@@ -1,7 +1,8 @@
 node ('master') {
+  def app
+
   stage('Build') {
-    cd /home/bbong/workdir/nginx
-    docker build -t nginx-test:1.0 .
+    app = docker.build("nginx-test")
   }
   stage('Results') {
   }
