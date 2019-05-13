@@ -29,8 +29,5 @@ node ('master') {
        app.push("latest")
      }
   stage('End') {
-     docker.withRegistry('https://registry.hub.docker.com', 'crash430') {
-       app.push("latest")
-     }
   }
 }
