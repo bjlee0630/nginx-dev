@@ -30,4 +30,8 @@ node ('master') {
        app.push("${BUILD_NUMBER}")
      }
   }
+
+  stage('Deploy image') {
+    sh "kubectl set image deployment nginx-test nginx-test=crash430/nginx-test:${BUILD_NUMBER} --record"
+  }
 }
