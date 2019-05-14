@@ -32,6 +32,6 @@ node ('master') {
   }
 
   stage('Deploy image') {
-    sh "kubectl set image deployment nginx-test nginx-test=crash430/nginx-test:${BUILD_NUMBER} --record"
+    sh "kubectl set image -n default deployment nginx nginx-test=crash430/nginx-test:${BUILD_NUMBER} --record"
   }
 }
