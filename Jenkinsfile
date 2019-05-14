@@ -6,11 +6,11 @@ node ('master') {
     checkout scm
   }
   stage('Build') {
-    app = docker.build("crash430/nginx-test")
+    app = docker.build("crash430/nginx-test:$(BUILD_NUMBER)")
   }
   stage('Run') {
     sh "docker container rm -f nginx-test"
-    sh "docker run --name nginx-test -p 8081:80 -d crash430/nginx-test"
+    sh "docker run --name nginx-test -p 8081:80 -d crash430/nginx-test:$(BUILD_NUMBER)"
     //docker.image('nginx-test').withRun('--name nginx-test -p 8081:80 -d') {
             /* do things */
     //    }
@@ -27,6 +27,7 @@ node ('master') {
   stage('Push image') {
      docker.withRegistry('https://registry.hub.docker.com', 'crash430') {
        app.push("latest")
+       app.push("$(BUILD_NUMBER")
      }
   }
 }
